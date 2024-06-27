@@ -21,6 +21,8 @@ public class APBDContext : DbContext
     public DbSet<Prescription> Prescriptions { get; set; }
     public DbSet<PrescriptionMedicament> PrescriptionMedicaments { get; set; }
 
+    public DbSet<AppUser> AppUsers { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

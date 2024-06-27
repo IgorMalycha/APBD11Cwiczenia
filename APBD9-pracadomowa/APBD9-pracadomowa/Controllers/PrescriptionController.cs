@@ -11,9 +11,9 @@ namespace APBD9_pracadomowa.Controllers;
 public class PrescriptionController : ControllerBase
 {
 
-    private DbServices _dbServices;
+    private IDbServices _dbServices;
 
-    public PrescriptionController(DbServices dbServices)
+    public PrescriptionController(IDbServices dbServices)
     {
         _dbServices = dbServices;
     }
@@ -66,7 +66,7 @@ public class PrescriptionController : ControllerBase
         { 
             await _dbServices.AddPatient(getPrescriptionForPatient);
             await _dbServices.AddPrescription(prescription);
-            await _dbServices.AddPrescriptionmedicaments(prescriptionMedicaments);
+            //await _dbServices.AddPrescriptionmedicaments(prescriptionMedicaments);
         }
         
     

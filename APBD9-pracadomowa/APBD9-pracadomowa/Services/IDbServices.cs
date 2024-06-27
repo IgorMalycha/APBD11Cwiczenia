@@ -16,5 +16,5 @@ public interface IDbServices
     Task AddPrescription(Prescription prescription);
 
     Task<Patient> GetPatientInfo(int IdPatient);
-
+    
 }

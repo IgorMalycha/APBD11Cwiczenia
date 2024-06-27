@@ -33,6 +33,7 @@ public class DbServices : IDbServices
 
         _apbdContext.SaveChanges();
     }
+
     public async Task<bool> DoesMedicationsExist(ICollection<GetMedicamentDTO> medicaments)
     {
 
@@ -43,10 +44,12 @@ public class DbServices : IDbServices
 
         return meds.All(c => existingMeds.Contains(c));
     }
+
     public async Task<bool> IsAbove10Medication(ICollection<GetMedicamentDTO> medicaments)
     {
         return 10 < medicaments.Select(c => c.IdMedicament).Count();
     }
+
     public async Task<bool> IsDueDateLessDate(GetPrescriptionForPatient getPrescriptionForPatient)
     {
         return getPrescriptionForPatient.DueDate <= getPrescriptionForPatient.Date;
@@ -69,8 +72,26 @@ public class DbServices : IDbServices
 
     }
 
+
     public async Task AddPrescriptionmedicaments(IEnumerable<PrescriptionMedicament> prescriptionMedicaments)
     {
         await _apbdContext.PrescriptionMedicaments.AddRangeAsync(prescriptionMedicaments);
+    }
+
+    public void AddUser(AppUser user)
+    {
+        _apbdContext.AppUsers.AddAsync(user);
+        _apbdContext.SaveChanges();
+    }
+
+    public async Task<AppUser> GetUser(string login)
+    {
+        return await _apbdContext.AppUsers.Where(u => u.Login == login).FirstOrDefaultAsync();
+    }
+
+    public async Task<AppUser> GetUserByRefreshToken(RefreshTokenRequestDTO refreshToken)
+    {
+        return await _apbdContext.AppUsers.Where(u => u.RefreshToken == refreshToken.RefreshToken)
+            .FirstOrDefaultAsync();
     }
 }
